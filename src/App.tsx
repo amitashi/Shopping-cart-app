@@ -1,11 +1,13 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Page/Home'
+import Header from './Components/Header/Header'
 
 const App = () => {
   return (
     <BrowserRouter>
-      Shopping Cart
+      <Header/>
+
     <Routes>
       <Route path='/' element={<Home/>}/>
 
