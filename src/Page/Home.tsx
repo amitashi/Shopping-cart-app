@@ -1,10 +1,12 @@
 import { Box } from '@mui/material'
-import React from 'react'
+import ShopProducts from '../Components/ProductsList/ProductsList'
+
 
 const Home = () => {
+
   return (
     <Box>
-      Home Page
+      <ShopProducts/>
     </Box>
   )
 }

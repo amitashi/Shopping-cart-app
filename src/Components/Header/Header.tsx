@@ -31,17 +31,17 @@ const Header = () => {
                 height:"3rem",
                 
             }}>
-                <ShoppingBagIcon sx={{color:"white", fontSize:"3rem"}}/>
+                <ShoppingBagIcon sx={{color:"#22c1c3", fontSize:"3rem"}}/>
             </Avatar>
             <Typography variant='h3' sx={{WebkitTextFillColor:"transparent", WebkitBackgroundClip:"text", 
-                background:"linear-gradient(90deg, rgba(240,240,237,1) 0%, rgba(208,208,208,1) 35%, rgba(189,189,190,1) 100%)" , 
+                background:"linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)" , 
                 backgroundClip:"text", }}>Shopping Cart</Typography>
         </Box>
         <Button sx={{backrgound:"transparent" , ":hover":{background:"transparent"}}}>
-        <Badge badgeContent={<Typography>2</Typography>} color="secondary">
+        <Badge badgeContent={<Typography sx={{color:"white"}}>2</Typography>} color='secondary'>
             <AddShoppingCartIcon color="action" sx={{
                 fontSize:"2rem",
-                color:'white'
+                color:"#22c1c3"
             }} />
         </Badge>
         </Button>
