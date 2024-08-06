@@ -1,9 +1,22 @@
+import React from 'react';
 import { Avatar, Badge, Box, Button, Typography } from '@mui/material'
-import React from 'react'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { ShoopingCartList, IShopCartProduct, setCartOpen } from '../../Redux/slices/CartSlice';
+import { useAppDispatch, useAppSelector } from '../../Redux/hook';
 
 const Header = () => {
+    const shopCartItems = useAppSelector(ShoopingCartList)
+    const dispatch = useAppDispatch();
+    const getTotalCartItemCount = ()=>{
+        return (
+            shopCartItems.reduce((acc:number, cur:IShopCartProduct)=> acc + cur.quantity,0)
+        )
+    }
+    const openCart = ()=>{
+        dispatch(setCartOpen(true));
+    }
+
   return (
     <Box
     sx={{
@@ -12,7 +25,13 @@ const Header = () => {
         alignItems:"center",
         py:2,
         px:4,
-        background:"linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(23,23,62,1) 35%, rgba(37,39,71,1) 100%)"
+        background:"linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(23,23,62,1) 35%, rgba(37,39,71,1) 100%)",
+        position:"fixed",
+        left:0,
+        right:0,
+        top:0,
+        zIndex:9999
+
     }}
     >
         <Box
@@ -20,7 +39,7 @@ const Header = () => {
             display:"flex",
             justifyContent:"space-between",
             alignItems:"center",
-            gap:1
+            gap:2
         }}
         >
             <Avatar 
@@ -35,10 +54,10 @@ const Header = () => {
             </Avatar>
             <Typography variant='h3' sx={{WebkitTextFillColor:"transparent", WebkitBackgroundClip:"text", 
                 background:"linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)" , 
-                backgroundClip:"text", }}>Shopping Cart</Typography>
+                backgroundClip:"text", fontSize:{xs:"1.5rem", md:"3rem",}, verticalAlign:"middle" }}>Shopping Cart</Typography>
         </Box>
-        <Button sx={{backrgound:"transparent" , ":hover":{background:"transparent"}}}>
-        <Badge badgeContent={<Typography sx={{color:"white"}}>2</Typography>} color='secondary'>
+        <Button onClick={openCart} sx={{backrgound:"transparent" , ":hover":{background:"transparent"}}}>
+        <Badge badgeContent={<Typography sx={{color:"white"}}>{getTotalCartItemCount()}</Typography>} color='secondary'>
             <AddShoppingCartIcon color="action" sx={{
                 fontSize:"2rem",
                 color:"#22c1c3"
@@ -46,20 +65,6 @@ const Header = () => {
         </Badge>
         </Button>
     </Box>
-
-
-//     <div className="header">
-//     <h1 className="header-line">Shopping App</h1>
-//     <button
-//         onClick={() => setIsCartOpen(true)}
-//         className="header-line-cart"
-//     >
-//         <img src={CartIcon} alt="cart" className="cartIcon" />
-//         <span className="header-line-cart-text">
-//             {cartItem.reduce((acc, cur) => acc + cur.quantity, 0)}
-//         </span>
-//     </button>
-// </div>
   )
 }
 

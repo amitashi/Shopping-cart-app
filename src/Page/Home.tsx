@@ -1,12 +1,14 @@
 import { Box } from '@mui/material'
-import ShopProducts from '../Components/ProductsList/ProductsList'
+import ProductsList from '../Components/ProductsList/ProductsList'
+import CartComponent from '../Components/Cart/CartComponent'
 
 
 const Home = () => {
 
   return (
     <Box>
-      <ShopProducts/>
+      <ProductsList/>
+      <CartComponent/>
     </Box>
   )
 }

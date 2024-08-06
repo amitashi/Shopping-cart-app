@@ -2,13 +2,13 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import {thunk} from 'redux-thunk';
 
 import ProductsList from "./slices/ProductsSlice"
-import { ShopCart } from './slices/CartSlice';
+import  ShopCart  from './slices/CartSlice';
 
 
 
 const rootReducer = combineReducers({
     productsList: ProductsList,
-    shopCart:ShopCart,
+    shoppingBag : ShopCart,
 });
 
 
