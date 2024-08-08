@@ -8,7 +8,6 @@ const Home = () => {
   return (
     <Box>
       <ProductsList/>
-      <CartComponent/>
     </Box>
   )
 }

@@ -1,11 +1,13 @@
 import React from "react";
-import {Box, Button, Chip, Typography } from "@mui/material";
+import {Box, Button, ButtonBase, Chip, Typography } from "@mui/material";
 import { Product } from "../../Interfaces/Product";
 import ClampedTypography from "../../Common/ClamppedTypography";
 import RatingStars from "./RatingStars";
 import { useAppSelector } from "../../Redux/hook";
 import { ShoopingCartList, IShopCartProduct, setCartItems } from "../../Redux/slices/CartSlice";
 import { useDispatch } from "react-redux";
+import { redirect, useNavigate } from "react-router-dom";
+import AddToCartButton from "../Cart/AddToCartButton";
 
 
 
@@ -19,8 +21,15 @@ const ProductCard = ({ product }: IProductCardProps) => {
 
   const shopCartItems = useAppSelector(ShoopingCartList)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
-  const AddToCart=()=>{
+  const handleCardClick = (e:React.MouseEvent)=>{
+    e.stopPropagation();
+    navigate(`/detail/${product.id}`)
+  }
+
+  const AddToCart=(e:React.MouseEvent)=>{
+    e.stopPropagation();
     const restList = shopCartItems.filter((item:IShopCartProduct)=>item.product.id!==product.id)
     const newCartItem:IShopCartProduct = {
       quantity:1,
@@ -34,13 +43,20 @@ const ProductCard = ({ product }: IProductCardProps) => {
   }
 
   return (
-    <Box
+    <ButtonBase
+    onClick={(e)=>handleCardClick(e)}
+    >
+      <Box
       key={product.id}
       sx={{
         height: "35rem",
         width: "22rem",
         boxShadow: 4,
-        borderRadius:1
+        borderRadius:1,
+        transition:"all ease-in-out",
+        ":hover":{
+          transform:"scale(1.02)"
+        }
       }}
     >
       {/* Product image */}
@@ -77,15 +93,19 @@ const ProductCard = ({ product }: IProductCardProps) => {
         height:"100%",
         background:"linear-gradient(180deg, rgba(230,232,239,1) 4%, rgba(244,244,247,1) 40%, rgba(155,155,156,1) 77%, rgba(134,134,135,1) 100%)",
         opacity:0.1
-      }}></Box>
+      }}>
+        
+      </Box>
      </Box>
      {/* product content */}
      <Box
      sx={{
       p:2,
+      height:"55%",
       display:"flex",
       flexDirection:"column",
       alignItems:"flex-start",
+      justifyContent:"space-between",
       gap:1
      }}
      >
@@ -94,6 +114,7 @@ const ProductCard = ({ product }: IProductCardProps) => {
       }} variant="filled" />
      <ClampedTypography clampAt={1} sx={{
       fontSize:"1.5rem",
+      textAlign:"left",
       fontFamily:"Roboto",
       letterSpacing:"1px",
       textTransform:"capitalize",
@@ -107,6 +128,9 @@ const ProductCard = ({ product }: IProductCardProps) => {
       textTransform:"capitalize",
       lineHeight:"1.25rem",
       opacity:0.8,
+      textAlign:"left"
+
+      
      }} clampAt={4}>
       {product.description}
      </ClampedTypography>
@@ -114,27 +138,16 @@ const ProductCard = ({ product }: IProductCardProps) => {
      sx={{
       fontSize:"1.75rem",
       fontWeight:500,
-      color:"rgba(2,0,36,1)"
+      color:"rgba(2,0,36,1)",
      }}
      >
       ${product.price.toFixed(2)}
      </Typography>
      <RatingStars productRating={product.rating}/>
-     <Button
-     onClick={AddToCart}
-     color="primary"
-     variant="contained"
-     sx={{
-     width:"100%",
-       mt:1,
-       background:"linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(23,23,62,1) 35%, rgba(37,39,71,1) 100%)",
-       
-     }}
-     >
-      Add to Cart
-     </Button>
+     <AddToCartButton product={product}/>
      </Box>
     </Box>
+    </ButtonBase>
   );
 };
 

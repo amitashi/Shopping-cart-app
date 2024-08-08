@@ -4,16 +4,18 @@ import { Box, Rating, Typography } from '@mui/material';
 import { ProductRating } from '../../Interfaces/ProductRating';
 
 interface IRatingStarts{
-  productRating:ProductRating
+  productRating:ProductRating;
+  sx?:object;
 }
 
-const RatingStars = ({productRating}:IRatingStarts) => {
+const RatingStars = ({productRating,sx}:IRatingStarts) => {
   return (
     <Box 
     sx={{
         display:"flex",
         gap:1,
-        alignItems:"center"
+        alignItems:"center",
+       
     }}
     >
 
@@ -21,11 +23,15 @@ const RatingStars = ({productRating}:IRatingStarts) => {
         name="read-only"
         value={productRating.rate}
         precision={0.5}
+        sx={{
+          ...sx
+        }}
         readOnly 
       />
       <Typography
       sx={{
-        color:"GrayText"
+        color:"GrayText",
+        ...sx
       }}
       >
         ({productRating.count})

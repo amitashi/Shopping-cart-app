@@ -20,6 +20,11 @@ class ProductAPIService{
         const url = `${this.api}products`;
         return axios.get<Product[]>(url,this.config)
     }
+    
+    getProductDetails(id:number):Promise<AxiosResponse<Product>>{
+        const url = `${this.api}products/${id}`;
+        return axios.get<Product>(url,this.config)
+    }
 
 }
 

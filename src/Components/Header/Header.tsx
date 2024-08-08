@@ -26,7 +26,7 @@ const Header = () => {
         py:2,
         px:4,
         background:"linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(23,23,62,1) 35%, rgba(37,39,71,1) 100%)",
-        position:"fixed",
+        position:"sticky",
         left:0,
         right:0,
         top:0,

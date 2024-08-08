@@ -47,7 +47,6 @@ const ShopProducts = () => {
   return (
     <Box 
     sx={{
-      marginTop:"5rem",
       left:0,
       right:0,
       p:2,
