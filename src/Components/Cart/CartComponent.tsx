@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../Redux/hook'
 import { IsCartOpen, setCartItems, setCartOpen, ShoopingCartList } from '../../Redux/slices/CartSlice'
 import { Box, Drawer, IconButton, Typography } from '@mui/material';
-import ClampedTypography from '../../Common/ClamppedTypography';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import Avatar from '@mui/material/Avatar';
+import CartItemCard from './CartItemCard';
+import CloseIcon from '@mui/icons-material/Close';
 
 const CartComponent = () => {
+  const [cartInfo,setCartInfo] = useState({
+    totalQty:0,
+    grandTotal:0,
+  })
     const isCartOpen = useAppSelector(IsCartOpen);
     const shopCartItems = useAppSelector(ShoopingCartList)
     const dispatch = useAppDispatch();
@@ -14,150 +20,133 @@ const CartComponent = () => {
       const newCartItems = shopCartItems.filter(item=>item.product.id !== Id);
       dispatch(setCartItems(newCartItems));
     }
+
+    useEffect(()=>{
+      const newCartInfo = {
+        grandTotal:shopCartItems.reduce((acc,cur)=>acc+(cur.product.price*cur.quantity),0),
+        totalQty:shopCartItems.reduce((acc,cur)=>acc+cur.quantity,0)
+      }
+      setCartInfo(newCartInfo);
+    },[shopCartItems])
   return (
     <Drawer
     anchor={'right'}
     open={isCartOpen}
-    onClose={()=>dispatch(setCartOpen(false))}
+    onClose={()=>dispatch(setCartOpen(false))} 
     sx={{
         width:"40vw",
         zIndex:9999
     }}
   >
    <Box sx={{
-    width:"40vw",
+    width:{xs:"90vw", md:"70vw",lg:"40vw"},
     p:2
    }}>
+    <Box
+    sx={{
+      display:"flex",
+      justifyContent:"space-between",
+      alignItems:"center"
+    }}
+    >
     <Typography variant='h3' sx={{color:"rgba(2,0,36,1)", fontWeight:600}}>Cart Items</Typography>
+    <IconButton 
+   sx={{
+    mr:2
+   }}
+    onClick={()=>dispatch(setCartOpen(false))}
+    >
+      <CloseIcon 
+       sx={{
+        fontSize:"2rem"
+      }}
+      />
+    </IconButton>
+    </Box>
     <Box
     sx={{
       p:2,
     }}
     >
-    {shopCartItems.map(item=>(
-        <Box key={item.product.id}
-        sx={{
-          height:"15vh",
-          width:"95%",
-          marginX:"auto",
-          boxShadow:2,
-          my:2,
-          borderRadius:2,
-          display:"flex",
-          alignItems:"flex-start",
-          
-        }}
-        >
-          <Box 
-     sx={{
-      display:"flex",
-      justifyContent:"center",
-      height:"100%",
-      width: "30%",
-      alignItems:"center",
-      position:"relative",
-      ":hover":{
-        ".image_product" :{
-          transform:"scale(1.01)"
-      }}
-     }} 
-     >
-      <img
-        src={item.product.image}
-        alt="Product_img"
-        className="image_product"
-        style={{
-          height:"90%",
-          width: "90%",
-          // border: "1px solid lightgrey",
-          objectFit:"contain",
-          padding:"16px",
-          margin:"8px",
-        }}
-      />
+      {shopCartItems.length===0 && 
       <Box sx={{
-        position:"absolute",
+        mt:10,
+        height:"50%",
         width:"100%",
-        height:"100%",
-        background:"linear-gradient(180deg, rgba(230,232,239,1) 4%, rgba(244,244,247,1) 40%, rgba(155,155,156,1) 77%, rgba(134,134,135,1) 100%)",
-        opacity:0.2
-      }}></Box>
-          </Box>
-         <Box sx={{
-          gap:1,
-          background:"rgba(2,0,36,0.1)",
-          width:"100%",
-          height:"100%",
-          display:"flex",
-          justifyContent:"space-between",
-          alignItems:"center",
-          borderRadius:1,
-          borderTopLeftRadius:0,
-          borderBottomLeftRadius:0
-         }}>
-        <Box 
+        display:"flex",
+        flexDirection:"column",
+        alignItems:"center",
+        justifyContent:"center",
+        background:"transparent"
+      }}>
+        <Avatar
         sx={{
-          p:2,
-          display:"flex",
-          flexDirection:"column",
-          justifyContent:"space-between",
-          alignItems:"flex-start",
-        }}
-        >
-       {/* <Tooltip title={`${item.product.title}`}> */}
-       <ClampedTypography clampAt={1} sx={{
-          fontWeight:500,
-          fontSize:"1.25rem",
+          background:"transparent",
           color:"rgba(2,0,36,1)",
-          opacity:0.9
-         }}>
-            {item.product.title}
-        </ClampedTypography>
-       {/* </Tooltip> */}
-        <Typography
-        sx={{
-          fontSize:"1rem",
-          lineHeight:"1.5rem",
-          fontWeight:600,
+          height:"5rem",
+          width:"5rem",
+        }}
+        >
+          <LocalMallOutlinedIcon sx={{
+            height:"5rem",
+            width:"5rem",
           color:"rgba(2,0,36,1)",
-          opacity:0.7
-
-
-        }}
-        >
-            Price: ${(item.product.price*item.quantity).toFixed(2)}
-        </Typography>
-        <Typography
-        sx={{
-          color:"rgba(2,0,36,1)",
-          fontSize:"1rem",
-          lineHeight:"1.5rem",
-          fontWeight:600,
-          opacity:0.7
-
-
-        }}
-        >
-            Qty: {item.quantity}
-        </Typography>
-          </Box>
-        <Box
-        sx={{
-          p:2,
-          
-        }}
-        >
-
-        <IconButton 
-        onClick={()=>removeFromCart(item.product.id)}
-        >
-        <DeleteOutlineOutlinedIcon sx={{color:"rgba(2,0,36,1)", fontSize:"2rem"}}/>
-       </IconButton>
-       </Box>
-          </Box>
-          
-          </Box>
-    ))}
+            stroke:1
+          }}/>
+          </Avatar>
+        <Typography sx={{
+          fontSize:"2.5rem"
+        }}>Your Cart Is Empty</Typography>
+        </Box>
+      }
+    {shopCartItems.length>0 && <>
+    <Box
+    sx={{
+      px:4,
+      py:2,
+      display:"flex",
+      flexDirection:{xs:"column",lg:"row"},
+      justifyContent:"space-between",
+      alignItems:{xs:"flex-start",lg:"center"},
+      background:'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(23,23,62,1) 35%, rgba(37,39,71,1) 100%)',
+      borderRadius:4,
+      gap:2,
+      position:"sticky",
+      top:0,
+      zIndex:9999
+    }}
+    >
+      <Typography
+      sx={{
+        WebkitTextFillColor:"transparent", 
+        WebkitBackgroundClip:"text", 
+        background:"linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)" , 
+        backgroundClip:"text", 
+        fontSize:"1.5rem",
+        lineHeight:"2rem",
+        fontWeight:500,
+        // color:"rgba(2,0,36,1)"
+      }}
+      >Checkout Price: ${cartInfo.grandTotal.toFixed(2)}</Typography>
+      <Typography
+      sx={{
+        WebkitTextFillColor:"transparent", 
+        WebkitBackgroundClip:"text", 
+        background:"linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)" , 
+        backgroundClip:"text", 
+        fontSize:"1.5rem",
+        lineHeight:"2rem",
+        fontWeight:500,
+        // color:"rgba(2,0,36,1)"
+      }}
+      >Total Qty: {cartInfo.totalQty} {cartInfo.totalQty>1?"Items":"Item"}</Typography>
+    </Box>
+    {
+      shopCartItems.map(item=>(
+        <CartItemCard key={item.product.id} item={item} removeFromCart={removeFromCart} />
+    ))
+    }
+    </>}
     </Box>
    </Box>
   </Drawer>

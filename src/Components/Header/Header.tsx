@@ -52,9 +52,14 @@ const Header = () => {
             }}>
                 <ShoppingBagIcon sx={{color:"#22c1c3", fontSize:"3rem"}}/>
             </Avatar>
-            <Typography variant='h3' sx={{WebkitTextFillColor:"transparent", WebkitBackgroundClip:"text", 
+            <Typography variant='h3' 
+            sx={{
+                WebkitTextFillColor:"transparent", 
+                WebkitBackgroundClip:"text", 
                 background:"linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)" , 
-                backgroundClip:"text", fontSize:{xs:"1.5rem", md:"3rem",}, verticalAlign:"middle" }}>Shopping Cart</Typography>
+                backgroundClip:"text", 
+                fontSize:{xs:"1.5rem", md:"3rem",}, 
+                verticalAlign:"middle" }}>Shopping Cart</Typography>
         </Box>
         <Button onClick={openCart} sx={{backrgound:"transparent" , ":hover":{background:"transparent"}}}>
         <Badge badgeContent={<Typography sx={{color:"white"}}>{getTotalCartItemCount()}</Typography>} color='secondary'>

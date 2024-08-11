@@ -6,6 +6,7 @@ import ProductAPIService from '../Utils/APIServices/ProductAPIService';
 import Response from '../Utils/Response';
 import RatingStars from '../Components/ProductsList/RatingStars';
 import AddToCartButton from '../Components/Cart/AddToCartButton';
+import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
 
 const ProductDetailPage = () => {
     let {id} = useParams();
@@ -37,14 +38,23 @@ const ProductDetailPage = () => {
     const ReturnButton = ()=>{
       return (
         <Button
+        startIcon={<ChevronLeftOutlinedIcon/>}
     variant='outlined'
     onClick={()=>navigate(`/`)}
     sx={{ml:4, my:2,
-      color:"white",
-      background:"linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(23,23,62,1) 35%, rgba(37,39,71,1) 100%)",
+      color:"rgba(2,0,36,1)",
+      // background:"linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(23,23,62,1) 35%, rgba(37,39,71,1) 100%)",
+      border:"none",
+      ":hover":{
+        textDecoration:"underline",
+      border:"none",
+
+        
+      }
+
     }}
       >
-        Go Back
+        Go To Results
       </Button>
       )
     }
@@ -60,8 +70,9 @@ const ProductDetailPage = () => {
     <Box
     sx={{
       p:4,
-      mt:4,
+      mt:{xs:0,md:4},
       display:"flex",
+      flexDirection:{xs:"column",md:"row"},
       gap:8,
       // justifyContent:"center"
     }}
@@ -70,8 +81,8 @@ const ProductDetailPage = () => {
       {/* left side image box */}
       <Box
       sx={{
-        width:"30vw",
-        height:"60vh",
+        width:{xs:"80vw", md:"30vw"},
+        height:{xs:"40vh",md:"60vh"},
         boxShadow:1,
         borderRadius:2
       }}
@@ -118,7 +129,7 @@ const ProductDetailPage = () => {
       {/* right side descriptionbox */}
       <Box
       sx={{
-        maxWidth:"40vw",
+        maxWidth:{xs:"90vw", md:"50vw"},
         display:"flex",
         flexDirection:"column",
         gap:2
@@ -145,11 +156,11 @@ const ProductDetailPage = () => {
       <RatingStars productRating={product.rating} sx={{fontSize:"1.75rem"}}/>
         <Typography variant='h4' sx={{
           fontWeight:500,
-          fontSize:"2.5rem"
+          fontSize:"1.75rem"
         }}>
         Price: ${product.price}
         </Typography>
-       <AddToCartButton product={product}/>
+       <AddToCartButton product={product} sx={{borderRadius:3, height:"2.5rem",fontSize:"1rem", maxWidth:"20rem"}}/>
       </Box>
     </Box>
     </>
