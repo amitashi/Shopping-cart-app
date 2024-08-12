@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../Redux/hook'
 import { IsCartOpen, setCartItems, setCartOpen, ShoopingCartList } from '../../Redux/slices/CartSlice'
 import { Box, Drawer, IconButton, Typography } from '@mui/material';

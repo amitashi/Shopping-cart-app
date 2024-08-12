@@ -1,12 +1,12 @@
 import React from "react";
-import {Box, Button, ButtonBase, Chip, Typography } from "@mui/material";
+import {Box, ButtonBase, Chip, Typography } from "@mui/material";
 import { Product } from "../../Interfaces/Product";
 import ClampedTypography from "../../Common/ClamppedTypography";
 import RatingStars from "./RatingStars";
-import { useAppSelector } from "../../Redux/hook";
-import { ShoopingCartList, IShopCartProduct, setCartItems } from "../../Redux/slices/CartSlice";
-import { useDispatch } from "react-redux";
-import { redirect, useNavigate } from "react-router-dom";
+// import { useAppSelector } from "../../Redux/hook";
+// import { ShoopingCartList, IShopCartProduct, setCartItems } from "../../Redux/slices/CartSlice";
+// import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import AddToCartButton from "../Cart/AddToCartButton";
 
 
@@ -19,8 +19,8 @@ export interface IProductCardProps {
 
 const ProductCard = ({ product }: IProductCardProps) => {
 
-  const shopCartItems = useAppSelector(ShoopingCartList)
-  const dispatch = useDispatch();
+  // const shopCartItems = useAppSelector(ShoopingCartList)
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   
   const handleCardClick = (e:React.MouseEvent)=>{
@@ -28,19 +28,19 @@ const ProductCard = ({ product }: IProductCardProps) => {
     navigate(`/detail/${product.id}`)
   }
 
-  const AddToCart=(e:React.MouseEvent)=>{
-    e.stopPropagation();
-    const restList = shopCartItems.filter((item:IShopCartProduct)=>item.product.id!==product.id)
-    const newCartItem:IShopCartProduct = {
-      quantity:1,
-      product:product,
-    }
-    const existingItem = shopCartItems.filter((item:IShopCartProduct)=>item.product.id===product.id)
-    if(existingItem.length>0){
-      newCartItem.quantity += existingItem[0].quantity
-    }
-    dispatch(setCartItems([...restList,newCartItem]))
-  }
+  // const AddToCart=(e:React.MouseEvent)=>{
+  //   e.stopPropagation();
+  //   const restList = shopCartItems.filter((item:IShopCartProduct)=>item.product.id!==product.id)
+  //   const newCartItem:IShopCartProduct = {
+  //     quantity:1,
+  //     product:product,
+  //   }
+  //   const existingItem = shopCartItems.filter((item:IShopCartProduct)=>item.product.id===product.id)
+  //   if(existingItem.length>0){
+  //     newCartItem.quantity += existingItem[0].quantity
+  //   }
+  //   dispatch(setCartItems([...restList,newCartItem]))
+  // }
 
   return (
     <ButtonBase

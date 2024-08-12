@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Box, CircularProgress, Grid, Typography } from '@mui/material';
+import { useEffect } from 'react'
+import { Box, CircularProgress } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../Redux/hook';
 import { fetchCStoreProducts, IsProductsLoading, Products } from '../../Redux/slices/ProductsSlice';
 import { Product } from '../../Interfaces/Product';

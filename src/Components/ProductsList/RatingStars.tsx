@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import { Box, Rating, Typography } from '@mui/material';
 import { ProductRating } from '../../Interfaces/ProductRating';
 

@@ -1,5 +1,4 @@
 import { Box, IconButton, Typography } from '@mui/material'
-import React from 'react'
 import ClampedTypography from '../../Common/ClamppedTypography'
 import { IShopCartProduct } from '../../Redux/slices/CartSlice'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';

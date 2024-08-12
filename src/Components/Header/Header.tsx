@@ -1,4 +1,3 @@
-import React from 'react';
 import { Avatar, Badge, Box, Button, Typography } from '@mui/material'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
