@@ -3,6 +3,7 @@ import Home from './Page/Home'
 import Header from './Components/Header/Header'
 import ProductDetailPage from './Page/ProductDetailPage'
 import CartComponent from './Components/Cart/CartComponent'
+import Footer from './Components/Footer/Footer'
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
       <Route path='/detail/:id' element={<ProductDetailPage/>}/>
       
     </Routes>
-
+    <Footer/>
     </BrowserRouter>
   )
 }
