@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../Redux/hook';
 import { fetchCStoreProducts, IsProductsLoading, Products } from '../../Redux/slices/ProductsSlice';
 import { Product } from '../../Interfaces/Product';
 import ProductCard from './ProductCard';
+import LoadingScreen from '../../Common/LoadingScreen';
 
 const ShopProducts = () => {
     const products = useAppSelector(Products);
@@ -18,7 +19,7 @@ const ShopProducts = () => {
     const renderContent = ()=>{
       if(isLoading){
         return (
-          <CircularProgress color="secondary" />
+          <LoadingScreen/>
         )
       }
       return (
@@ -30,6 +31,7 @@ const ShopProducts = () => {
           alignItems:"flex-start",
           justifyContent:"center",
           padding:"10px 0px 30px 0px",
+          marginBottom:20,
         }}
         >
            {

@@ -7,6 +7,7 @@ import Response from '../Utils/Response';
 import RatingStars from '../Components/ProductsList/RatingStars';
 import AddToCartButton from '../Components/Cart/AddToCartButton';
 import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
+import LoadingScreen from '../Common/LoadingScreen';
 
 const ProductDetailPage = () => {
     let {id} = useParams();
@@ -61,7 +62,10 @@ const ProductDetailPage = () => {
 
     if(isLoading || !product){
       return (
+      <>
         <ReturnButton/>
+        <LoadingScreen/>
+      </>
       )
     }
   return (

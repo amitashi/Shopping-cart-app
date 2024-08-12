@@ -43,19 +43,20 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        position:"relative",
+        position:"fixed",
         bottom:0,
         left:0,
         right:0,
+        width:"100%",
         display:"flex",
         flexDirection:"column",
         alignItems:"center",
         justifyContent:"center",
-        mt:2,
         pt:2,
-        background:"rgba(2,0,36,0.2)",
+        background:"rgba(2,0,36,1)",
         gap:2,
         overflow:"hidden",
+        zIndex:99
       }}
     >
       <Box sx={{
@@ -65,7 +66,7 @@ const Footer = () => {
         {SocialMediaList.map(item=>(
           <IconButton key={item.id} title={item.name}>
             <item.icon sx={{
-            color:"rgba(2,0,36,1)"
+            color:"white"
             }}/>
           </IconButton>
         ))}
